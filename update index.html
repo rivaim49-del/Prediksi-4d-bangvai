@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>ANALISIS TOGEL MISTIK</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#071a30;
+    color:white;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:#0b1c30;
+    border:2px solid #28557e;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+h1{
+    text-align:center;
+    margin:0;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#9fc6eb;
+    font-size:15px;
+    margin:12px 0 25px;
+    line-height:1.5;
+}
+
+label{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+#result{
+    width:100%;
+    height:65px;
+    border-radius:15px;
+    border:2px solid #4678a5;
+    background:#06111e;
+    color:white;
+    text-align:center;
+    font-size:30px;
+    letter-spacing:10px;
+    outline:none;
+}
+
+#btnAnalisis{
+    width:100%;
+    height:65px;
+    margin-top:18px;
+    border:0;
+    border-radius:15px;
+    background:#2196f3;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+}
+
+#btnAnalisis:active{
+    transform:scale(.98);
+}
+
+.info{
+    background:#292008;
+    border-left:7px solid #ffb300;
+    padding:15px;
+    margin-top:18px;
+    color:#f0d991;
+    line-height:1.6;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.box{
+    background:#06111e;
+    border:1px solid #315575;
+    border-radius:12px;
+    padding:15px;
+}
+
+.box h3{
+    color:#55b4ff;
+    margin:0 0 10px;
+}
+
+.angka{
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:5px;
+}
+
+.bbfs{
+    text-align:center;
+    font-size:38px;
+    font-weight:bold;
+    color:#ffd54f;
+    letter-spacing:8px;
+}
+
+.tarung{
+    text-align:center;
+}
+
+.tarung span{
+    display:inline-block;
+    background:#175181;
+    padding:12px 17px;
+    margin:5px;
+    border-radius:9px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #294761;
+    text-align:center;
+}
+
+th{
+    color:#59b8ff;
+}
+
+.line4d{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.item4d{
+    background:#06111e;
+    border:1px solid #315575;
+    border-radius:10px;
+    padding:15px;
+    text-align:center;
+}
+
+.item4d small{
+    color:#8fb1cf;
+}
+
+.item4d strong{
+    display:block;
+    color:#ffd54f;
+    font-size:27px;
+    margin-top:7px;
+    letter-spacing:4px;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:600px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .line4d{
+        grid-template-columns:1fr 1fr;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- INPUT -->
+
+<div class="card">
+
+<h1>ANALISIS TOGEL</h1>
+
+<div class="subtitle">
+MISTIK LAMA • MISTIK BARU • INDEX • TYSEN • MISTIK 9 • MISTIK 0
+</div>
+
+<label>RESULT SEBELUMNYA</label>
+
+<input
+    id="result"
+    type="text"
+    inputmode="numeric"
+    maxlength="4"
+    placeholder="1385"
+>
+
+<button id="btnAnalisis">
+ANALISIS SEKARANG
+</button>
+
+<div class="info">
+Masukkan result sebelumnya sebanyak 4 digit.
+Kemudian tekan tombol ANALISIS SEKARANG.
+</div>
+
+</div>
+
+
+<!-- HASIL -->
+
+<div id="hasil"></div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   RUMUS SESUAI GAMBAR
+===================================================== */
+
+const MISTIK_LAMA = {
+    "0":"1",
+    "2":"5",
+    "3":"8",
+    "4":"7",
+    "6":"9"
+};
+
+const MISTIK_BARU = {
+    "0":"8",
+    "2":"6",
+    "3":"9",
+    "4":"5",
+    "7":"1"
+};
+
+const INDEX = {
+    "0":"5",
+    "2":"7",
+    "3":"8",
+    "4":"9",
+    "1":"6"
+};
+
+const TYSEN = {
+    "0":"7",
+    "2":"9",
+    "3":"6",
+    "4":"1",
+    "5":"8"
+};
+
+const MISTIK_9 = {
+    "0":"9",
+    "1":"8",
+    "2":"7",
+    "3":"6",
+    "4":"5"
+};
+
+const MISTIK_0 = {
+    "0":"6",
+    "1":"5",
+    "2":"8",
+    "3":"7",
+    "4":"9"
+};
+
+
+/* =====================================================
+   FUNGSI PEMETAAN
+===================================================== */
+
+function proses(angka,tabel){
+
+    let hasil="";
+
+    for(let i=0;i<angka.length;i++){
+
+        let digit=angka[i];
+
+        if(tabel[digit] !== undefined){
+
+            hasil += tabel[digit];
+
+        }else{
+
+            hasil += digit;
+
+        }
+
+    }
+
+    return hasil;
+}
+
+
+/* =====================================================
+   BUAT SEMUA HASIL
+===================================================== */
+
+function semuaRumus(input){
+
+    return [
+
+        {
+            nama:"Mistik Lama",
+            hasil:proses(input,MISTIK_LAMA)
+        },
+
+        {
+            nama:"Mistik Baru",
+            hasil:proses(input,MISTIK_BARU)
+        },
+
+        {
+            nama:"Index",
+            hasil:proses(input,INDEX)
+        },
+
+        {
+            nama:"Tysen",
+            hasil:proses(input,TYSEN)
+        },
+
+        {
+            nama:"Mistik 9",
+            hasil:proses(input,MISTIK_9)
+        },
+
+        {
+            nama:"Mistik 0",
+            hasil:proses(input,MISTIK_0)
+        }
+
+    ];
+
+}
+
+
+/* =====================================================
+   FREKUENSI ANGKA
+===================================================== */
+
+function frekuensi(data){
+
+    let jumlah={
+        "0":0,
+        "1":0,
+        "2":0,
+        "3":0,
+        "4":0,
+        "5":0,
+        "6":0,
+        "7":0,
+        "8":0,
+        "9":0
+    };
+
+
+    data.forEach(function(row){
+
+        for(let digit of row.hasil){
+
+            jumlah[digit]++;
+
+        }
+
+    });
+
+
+    let hasil=[];
+
+
+    for(let digit=0;digit<=9;digit++){
+
+        hasil.push({
+
+            angka:String(digit),
+
+            jumlah:jumlah[String(digit)]
+
+        });
+
+    }
+
+
+    hasil.sort(function(a,b){
+
+        return b.jumlah-a.jumlah;
+
+    });
+
+
+    return hasil;
+
+}
+
+
+/* =====================================================
+   BUAT BBFS
+===================================================== */
+
+function buatBBFS(rank){
+
+    let hasil="";
+
+    for(let i=0;i<6;i++){
+
+        hasil += rank[i].angka;
+
+    }
+
+    return hasil;
+
+}
+
+
+/* =====================================================
+   BUAT ANGKA TARUNG
+===================================================== */
+
+function buatTarung(rank){
+
+    let hasil=[];
+
+    for(let i=0;i<6;i++){
+
+        hasil.push(rank[i].angka);
+
+    }
+
+    return hasil;
+
+}
+
+
+/* =====================================================
+   BUAT TOP 4D
+===================================================== */
+
+function buatTop4D(digit){
+
+    let hasil=[];
+
+    for(let a=0;a<digit.length;a++){
+
+        for(let b=0;b<digit.length;b++){
+
+            for(let c=0;c<digit.length;c++){
+
+                for(let d=0;d<digit.length;d++){
+
+                    let angka =
+                        digit[a]+
+                        digit[b]+
+                        digit[c]+
+                        digit[d];
+
+
+                    if(!hasil.includes(angka)){
+
+                        hasil.push(angka);
+
+                    }
+
+
+                    if(hasil.length>=10){
+
+                        return hasil;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return hasil;
+
+}
+
+
+/* =====================================================
+   TAMPILKAN HASIL
+===================================================== */
+
+function analisis(){
+
+    const input =
+        document.getElementById("result").value.trim();
+
+
+    if(!/^[0-9]{4}$/.test(input)){
+
+        alert("Masukkan RESULT tepat 4 digit.");
+
+        return;
+
+    }
+
+
+    const data =
+        semuaRumus(input);
+
+
+    const rank =
+        frekuensi(data);
+
+
+    const bbfs =
+        buatBBFS(rank);
+
+
+    const tarung =
+        buatTarung(rank);
+
+
+    const top4d =
+        buatTop4D(tarung);
+
+
+    let html="";
+
+
+    /* HASIL MISTIK */
+
+    html += `
+
+    <div class="card">
+
+        <h2>HASIL RUMUS MISTIK</h2>
+
+        <div class="grid">
+
+    `;
+
+
+    data.forEach(function(row){
+
+        html += `
+
+        <div class="box">
+
+            <h3>${row.nama}</h3>
+
+            <div class="angka">
+                ${row.hasil}
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    /* BBFS */
+
+    html += `
+
+    <div class="card">
+
+        <h2>BBFS 6 DIGIT</h2>
+
+        <div class="bbfs">
+            ${bbfs}
+        </div>
+
+    </div>
+
+    `;
+
+
+    /* ANGKA TARUNG */
+
+    html += `
+
+    <div class="card">
+
+        <h2>ANGKA TARUNG 6 DIGIT</h2>
+
+        <div class="tarung">
+
+    `;
+
+
+    tarung.forEach(function(digit){
+
+        html += `
+            <span>${digit}</span>
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    /* RANKING */
+
+    html += `
+
+    <div class="card">
+
+        <h2>RANKING ANGKA</h2>
+
+        <table>
+
+            <tr>
+                <th>RANK</th>
+                <th>ANGKA</th>
+                <th>FREKUENSI</th>
+            </tr>
+
+    `;
+
+
+    rank.forEach(function(row,index){
+
+        html += `
+
+            <tr>
+
+                <td>${index+1}</td>
+
+                <td>
+                    <b>${row.angka}</b>
+                </td>
+
+                <td>${row.jumlah}</td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </table>
+
+    </div>
+
+    `;
+
+
+    /* TOP 4D */
+
+    html += `
+
+    <div class="card">
+
+        <h2>TOP 4D — 10 LINE</h2>
+
+        <div class="line4d">
+
+    `;
+
+
+    top4d.forEach(function(angka,index){
+
+        html += `
+
+        <div class="item4d">
+
+            <small>
+                LINE ${index+1}
+            </small>
+
+            <strong>
+                ${angka}
+            </strong>
+
+        </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    /* CATATAN */
+
+    html += `
+
+    <div class="card">
+
+        <div class="info">
+
+        Result yang digunakan:
+        <b>${input}</b>
+
+        <br><br>
+
+        Sistem menghitung pemetaan berdasarkan
+        enam tabel rumus pada gambar, kemudian
+        merangking frekuensi digit untuk membuat
+        BBFS, angka tarung dan kombinasi 4D.
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    document.getElementById("hasil").innerHTML=html;
+
+}
+
+
+/* =====================================================
+   TOMBOL
+===================================================== */
+
+document
+.getElementById("btnAnalisis")
+.addEventListener("click",analisis);
+
+
+/* =====================================================
+   TEKAN ENTER JUGA BISA
+===================================================== */
+
+document
+.getElementById("result")
+.addEventListener("keydown",function(event){
+
+    if(event.key==="Enter"){
+
+        analisis();
+
+    }
+
+});
+
+
+</script>
+
+</body>
+</html>
